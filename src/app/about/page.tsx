@@ -8,58 +8,125 @@ import { useState } from 'react';
 export default function About() {
   const { language, setLanguage, t } = useLanguage();
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-white to-blue-50">
-      <header className="fixed top-0 left-0 right-0 bg-white shadow p-4 flex justify-between items-center z-10">
-        <h1 className="text-2xl font-bold">Jiale Trading GmbH</h1>
-        <div className="flex items-center space-x-6">
-          <nav className="space-x-4 text-gray-700">
-            <Link href="/">{t('nav.home')}</Link>
-            <Link href="/about" className="text-blue-600 font-semibold">{t('nav.about')}</Link>
-            <Link href="/products">{t('nav.products')}</Link>
-            <Link href="/contact">{t('nav.contact')}</Link>
-          </nav>
+      <header className="fixed top-0 left-0 right-0 bg-white shadow p-4 z-10">
+        <div className="flex justify-between items-center">
+          {/* Logo */}
+          <h1 className="text-xl md:text-2xl font-bold text-black">Jiale Trading GmbH</h1>
           
-          {/* Language Switcher */}
-          <div className="relative">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-6">
+            <nav className="space-x-4 text-gray-700">
+              <Link href="/" className="hover:text-blue-600 transition-colors">{t('nav.home')}</Link>
+              <Link href="/about" className="text-blue-600 font-semibold">{t('nav.about')}</Link>
+              <Link href="/products" className="hover:text-blue-600 transition-colors">{t('nav.products')}</Link>
+              <Link href="/contact" className="hover:text-blue-600 transition-colors">{t('nav.contact')}</Link>
+            </nav>
+            
+            {/* Desktop Language Switcher */}
+            <div className="relative">
+              <button
+                onClick={() => setShowLanguageMenu(!showLanguageMenu)}
+                className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                <span className="text-xl">{language === 'de' ? '🇩🇪' : '🇺🇸'}</span>
+                <span className="uppercase font-medium">{language}</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {showLanguageMenu && (
+                <div className="absolute right-0 mt-2 py-2 w-24 bg-white rounded-md shadow-lg border">
+                  <button
+                    onClick={() => {
+                      setLanguage('de');
+                      setShowLanguageMenu(false);
+                    }}
+                    className="flex items-center space-x-2 w-full px-4 py-2 text-left hover:bg-gray-100"
+                  >
+                    <span>🇩🇪</span>
+                    <span>DE</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setLanguage('en');
+                      setShowLanguageMenu(false);
+                    }}
+                    className="flex items-center space-x-2 w-full px-4 py-2 text-left hover:bg-gray-100"
+                  >
+                    <span>🇺🇸</span>
+                    <span>EN</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center space-x-3">
+            {/* Mobile Language Switcher */}
             <button
-              onClick={() => setShowLanguageMenu(!showLanguageMenu)}
-              className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-blue-600 transition-colors"
+              onClick={() => setLanguage(language === 'de' ? 'en' : 'de')}
+              className="flex items-center space-x-1 px-2 py-1 text-gray-700 hover:text-blue-600 transition-colors"
             >
-              <span className="text-xl">{language === 'de' ? '🇩🇪' : '🇺🇸'}</span>
-              <span className="uppercase font-medium">{language}</span>
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+              <span className="text-lg">{language === 'de' ? '🇩🇪' : '🇺🇸'}</span>
             </button>
             
-            {showLanguageMenu && (
-              <div className="absolute right-0 mt-2 py-2 w-24 bg-white rounded-md shadow-lg border">
-                <button
-                  onClick={() => {
-                    setLanguage('de');
-                    setShowLanguageMenu(false);
-                  }}
-                  className="flex items-center space-x-2 w-full px-4 py-2 text-left hover:bg-gray-100"
-                >
-                  <span>🇩🇪</span>
-                  <span>DE</span>
-                </button>
-                <button
-                  onClick={() => {
-                    setLanguage('en');
-                    setShowLanguageMenu(false);
-                  }}
-                  className="flex items-center space-x-2 w-full px-4 py-2 text-left hover:bg-gray-100"
-                >
-                  <span>🇺🇸</span>
-                  <span>EN</span>
-                </button>
-              </div>
-            )}
+            {/* Hamburger Menu */}
+            <button
+              onClick={() => setShowMobileMenu(!showMobileMenu)}
+              className="p-2 text-gray-700 hover:text-blue-600 transition-colors"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {showMobileMenu ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {showMobileMenu && (
+          <div className="md:hidden mt-4 pb-4 border-t border-gray-200">
+            <nav className="flex flex-col space-y-3 pt-4">
+              <Link 
+                href="/" 
+                className="block px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                onClick={() => setShowMobileMenu(false)}
+              >
+                {t('nav.home')}
+              </Link>
+              <Link 
+                href="/about" 
+                className="block px-4 py-2 text-blue-600 font-semibold bg-blue-50 rounded"
+                onClick={() => setShowMobileMenu(false)}
+              >
+                {t('nav.about')}
+              </Link>
+              <Link 
+                href="/products" 
+                className="block px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                onClick={() => setShowMobileMenu(false)}
+              >
+                {t('nav.products')}
+              </Link>
+              <Link 
+                href="/contact" 
+                className="block px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                onClick={() => setShowMobileMenu(false)}
+              >
+                {t('nav.contact')}
+              </Link>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* Hero Section */}
