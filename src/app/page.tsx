@@ -44,7 +44,7 @@ export default function Home() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3">
             <Image 
-              src="/jiale-logo.png" 
+              src="/jiale-logo.svg" 
               alt="Jiale Trading GmbH Logo" 
               width={60} 
               height={40}
@@ -442,7 +442,7 @@ export default function Home() {
             <div className="md:col-span-2">
               <div className="flex items-center space-x-3 mb-4">
                 <Image 
-                  src="/jiale-logo.png" 
+                  src="/jiale-logo.svg" 
                   alt="Jiale Trading GmbH Logo" 
                   width={50} 
                   height={33}

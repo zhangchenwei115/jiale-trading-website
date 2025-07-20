@@ -118,7 +118,7 @@ export default function Contact() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3">
             <Image 
-              src="/jiale-logo.png" 
+              src="/jiale-logo.svg" 
               alt="Jiale Trading GmbH Logo" 
               width={60} 
               height={40}
