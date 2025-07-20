@@ -3,16 +3,42 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLanguage } from "../../lib/LanguageContext";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function About() {
   const { language, setLanguage, t } = useLanguage();
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY < 100) {
+        // Always show header when near top
+        setIsHeaderVisible(true);
+      } else if (currentScrollY > lastScrollY) {
+        // Scrolling down - hide header
+        setIsHeaderVisible(false);
+      } else {
+        // Scrolling up - show header
+        setIsHeaderVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-white to-blue-50">
-      <header className="fixed top-0 left-0 right-0 bg-white shadow p-4 z-10">
+      <header className={`fixed top-0 left-0 right-0 bg-white shadow p-4 z-10 transition-transform duration-300 ${
+        isHeaderVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}>
         <div className="flex justify-between items-center">
           {/* Logo */}
           <h1 className="text-xl md:text-2xl font-bold text-black">Jiale Trading GmbH</h1>
