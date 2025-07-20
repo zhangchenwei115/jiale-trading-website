@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLanguage } from "../lib/LanguageContext";
 import { useState, useEffect } from 'react';
@@ -41,7 +42,16 @@ export default function Home() {
       }`}>
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <h1 className="text-xl md:text-2xl font-bold text-black">Jiale Trading GmbH</h1>
+          <Link href="/" className="flex items-center space-x-3">
+            <Image 
+              src="/jiale-logo.png" 
+              alt="Jiale Trading GmbH Logo" 
+              width={60} 
+              height={40}
+              className="object-contain"
+            />
+            <h1 className="text-xl md:text-2xl font-bold text-black">Jiale Trading GmbH</h1>
+          </Link>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
@@ -430,9 +440,18 @@ export default function Home() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             {/* Company Info */}
             <div className="md:col-span-2">
-              <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-                Jiale Trading GmbH
-              </h3>
+              <div className="flex items-center space-x-3 mb-4">
+                <Image 
+                  src="/jiale-logo.png" 
+                  alt="Jiale Trading GmbH Logo" 
+                  width={50} 
+                  height={33}
+                  className="object-contain"
+                />
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+                  Jiale Trading GmbH
+                </h3>
+              </div>
               <p className="text-gray-300 mb-6 leading-relaxed">
                 Ihr zuverlässiger Partner für hochwertige Werbeartikel und umweltfreundliche Taschen seit über 20 Jahren.
               </p>

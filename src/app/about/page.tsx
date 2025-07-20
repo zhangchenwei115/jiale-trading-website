@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLanguage } from "../../lib/LanguageContext";
 import { useState, useEffect } from 'react';
@@ -41,7 +42,16 @@ export default function About() {
       }`}>
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <h1 className="text-xl md:text-2xl font-bold text-black">Jiale Trading GmbH</h1>
+          <Link href="/" className="flex items-center space-x-3">
+            <Image 
+              src="/jiale-logo.png" 
+              alt="Jiale Trading GmbH Logo" 
+              width={60} 
+              height={40}
+              className="object-contain"
+            />
+            <h1 className="text-xl md:text-2xl font-bold text-black">Jiale Trading GmbH</h1>
+          </Link>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
